@@ -1,0 +1,3 @@
+[hosts]
+192.168.4.10  user_passwd=linux mysql_passwd=linux domain=192.168.4.10
+192.168.4.11  user_passwd=linux mysql_passwd=linux domain=192.168.4.11

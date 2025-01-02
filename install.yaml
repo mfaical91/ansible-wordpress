@@ -1,0 +1,17 @@
+---
+- name: Déployer WordPress sur les hôtes
+  hosts: hosts
+  become: true
+  vars_files:
+    - roles/mysql/defaults/main.yml
+    - roles/wp_cli/defaults/main.yml
+  vars:
+    mysql_root_password: "{{ mysql_passwd }}"
+    mysql_database: "wordpress"
+    mysql_user: "wordpress_user"
+    mysql_password: "wordpress_password"
+
+  roles:
+    - mysql
+    - serveur
+    - wp_cli

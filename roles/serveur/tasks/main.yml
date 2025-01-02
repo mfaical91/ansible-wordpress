@@ -1,0 +1,22 @@
+# roles/serveur/tasks/main.yml
+---
+- name: Installer Apache2
+  apt:
+    name: apache2
+    state: present
+  notify:
+    - Start Apache
+
+- name: Installer PHP et les extensions nécessaires
+  apt:
+    name:
+      - php
+      - php-mysql
+      - php-gd
+      - php-curl
+      - php-xml
+      - libapache2-mod-php
+    state: present
+  notify:
+    - Restart Apache
+

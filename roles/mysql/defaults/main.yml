@@ -1,0 +1,6 @@
+# roles/mysql/defaults/main.yml
+mysql_root_password: "root_password"
+mysql_database: "wordpress"
+mysql_user: "wordpress_user"
+mysql_password: "wordpress_password"
+

@@ -1,0 +1,32 @@
+# roles/mysql/tasks/main.yml
+---
+- name: Installer MySQL
+  apt:
+    name: mysql-server
+    state: present
+  notify:
+    - Start MySQL
+    
+- name: Start MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+
+- name: Créer la base de données WordPress
+  mysql_db:
+    name: "{{ mysql_database }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Créer un utilisateur MySQL pour WordPress
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_database }}.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+

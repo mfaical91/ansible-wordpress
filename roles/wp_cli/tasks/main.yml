@@ -1,0 +1,25 @@
+# roles/wp_cli/tasks/main.yml
+---
+- name: Télécharger et installer WP-CLI
+  shell: |
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+  args:
+    creates: /usr/local/bin/wp
+
+- name: Télécharger WordPress
+  shell: |
+    cd /var/www/html
+    wp core download --version=latest --locale=fr_FR
+
+- name: Configurer WordPress
+  shell: |
+    cd /var/www/html
+    wp config create --dbname={{ mysql_database }} --dbuser={{ mysql_user }} --dbpass={{ mysql_password }} --dbhost={{ domain }}
+
+- name: Installer WordPress
+  shell: |
+    cd /var/www/html
+    wp core install --url=http://{{ domain }} --title="Mon site WordPress" --admin_user="admin" --admin_password="admin_password" --admin_email="admin@example.com"
+
